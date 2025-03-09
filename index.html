@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Explorer - Interactive 3D Solar System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="transform-3d">
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content transform-3d">
+            <div class="spinner"></div>
+            <h2>Preparing Your Cosmic Journey...</h2>
+            <p id="loadingText">Loading celestial bodies...</p>
+            <div class="loading-stars"></div>
+        </div>
+    </div>
+
+    <header class="transform-3d">
+        <div class="logo transform-3d">
+            <i class="fas fa-rocket"></i>
+            <h1>Cosmic Explorer</h1>
+        </div>
+        <nav class="transform-3d">
+            <button id="infoToggle" class="transform-3d">
+                <i class="fas fa-info-circle"></i>
+                <span>Info Panel</span>
+            </button>
+            <button id="audioToggle" class="transform-3d">
+                <i class="fas fa-volume-up"></i>
+                <span>Sound</span>
+            </button>
+            <button id="fullscreenToggle" class="transform-3d">
+                <i class="fas fa-expand"></i>
+                <span>Fullscreen</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="transform-3d">
+        <div id="canvas-container" class="transform-3d"></div>
+        
+        <div class="info-panel transform-3d" id="infoPanel">
+            <div class="panel-header">
+                <h2 id="planetName">Solar System</h2>
+                <button id="closePanel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div id="planetInfo" class="transform-3d">
+                    <p>Welcome to Cosmic Explorer! Click on any planet to learn more about it.</p>
+                    <p>Use your mouse to rotate the view, scroll to zoom, and drag to pan.</p>
+                </div>
+                <div class="planet-stats transform-3d" id="planetStats"></div>
+                <div class="fun-facts transform-3d" id="funFacts"></div>
+            </div>
+        </div>
+
+        <div class="controls transform-3d">
+            <div class="speed-control transform-3d">
+                <label for="simulationSpeed">Simulation Speed</label>
+                <input type="range" id="simulationSpeed" min="0" max="10" value="5">
+                <span class="speed-value">1x</span>
+            </div>
+            <div class="planet-selector transform-3d">
+                <select id="planetSelect">
+                    <option value="overview">Solar System Overview</option>
+                    <option value="sun">Sun</option>
+                    <option value="mercury">Mercury</option>
+                    <option value="venus">Venus</option>
+                    <option value="earth">Earth</option>
+                    <option value="mars">Mars</option>
+                    <option value="jupiter">Jupiter</option>
+                    <option value="saturn">Saturn</option>
+                    <option value="uranus">Uranus</option>
+                    <option value="neptune">Neptune</option>
+                </select>
+            </div>
+        </div>
+    </main>
+
+    <div class="tooltip transform-3d" id="tooltip"></div>
+
+    <!-- Load dependencies first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Load application scripts -->
+    <script>
+        // Check if Three.js is loaded
+        window.addEventListener('load', () => {
+            if (typeof THREE === 'undefined') {
+                document.getElementById('loadingText').textContent = 'Error: Three.js failed to load. Please check your internet connection and refresh.';
+                console.error('Three.js is not loaded');
+                return;
+            }
+        });
+    </script>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html> 
